@@ -1,27 +1,34 @@
 /**
- * Patient class stores basic patient information
+ * Entity class representing a patient in the health service system.
+ * Encapsulates patient personal details with controlled read-only access.
  */
 public class Patient {
+    private int patientId;
     private String name;
     private String phoneNumber;
+    private int age;
+    private String gender;
 
     /**
-     * Constructor with validation to ensure valid patient data
-     * @param name patient's full name
-     * @param phoneNumber patient's contact phone number
+     * Constructs a Patient with all required personal information.
+     * @param patientId unique numeric identifier for the patient
+     * @param name full name of the patient
+     * @param phoneNumber contact phone number
+     * @param age age of the patient
+     * @param gender gender of the patient
      */
-    public Patient(String name, String phoneNumber) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Patient name cannot be empty");
-        }
-        if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
-            throw new IllegalArgumentException("Phone number cannot be empty");
-        }
+    public Patient(int patientId, String name, String phoneNumber, int age, String gender) {
+        this.patientId = patientId;
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.age = age;
+        this.gender = gender;
     }
 
-    // Getter methods
+    public int getPatientId() {
+        return patientId;
+    }
+
     public String getName() {
         return name;
     }
@@ -30,8 +37,22 @@ public class Patient {
         return phoneNumber;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    /**
+     * Returns a formatted string with full patient details.
+     * @return patient information as a readable string
+     */
     @Override
     public String toString() {
-        return "Patient Name: " + name + "\nContact Phone: " + phoneNumber;
+        return "Patient | ID: " + patientId + " | Name: " + name
+                + " | Age: " + age + " | Gender: " + gender
+                + " | Phone: " + phoneNumber;
     }
 }
