@@ -1,49 +1,34 @@
+import java.util.ArrayList;
+
 /**
- * Abstract base class representing a generic health professional.
- * Contains common attributes and behaviours shared by all health professional types.
- * This class cannot be instantiated directly.
+ * Abstract base class for all health professional types.
+ * Defines shared attributes and behaviour, and cannot be instantiated directly.
+ * Enforces subclasses to implement their core duty method.
  */
 public abstract class HealthProfessional {
-    // Private attributes - Encapsulation: controlled access only via getters
     private int id;
     private String name;
-    private String[] workDays;
+    private ArrayList<String> workDays;
 
     /**
-     * Full constructor with all parameters
-     * @param id unique numeric ID of the professional
+     * Constructs a health professional with base identity and availability.
+     * @param id unique numeric identifier
      * @param name full name of the professional
-     * @param workDays array of working days in a week
+     * @param workDays list of days the professional works each week
      */
-    public HealthProfessional(int id, String name, String[] workDays) {
-        // Validation to ensure object is always in a valid state
-        if (id <= 0) {
-            throw new IllegalArgumentException("ID must be a positive number");
-        }
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty");
-        }
+    public HealthProfessional(int id, String name, ArrayList<String> workDays) {
         this.id = id;
         this.name = name;
         this.workDays = workDays;
     }
 
     /**
-     * Overloaded constructor with default work days (Monday to Friday)
-     * @param id unique numeric ID of the professional
-     * @param name full name of the professional
+     * Abstract method describing the core duty of the professional.
+     * Must be implemented by every concrete subclass.
+     * @return description of the service provided
      */
-    public HealthProfessional(int id, String name) {
-        this(id, name, new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"});
-    }
+    public abstract String performDuty();
 
-    /**
-     * Abstract method that each specific professional type must implement
-     * Describes the core duty of the professional
-     */
-    public abstract void performDuty();
-
-    // Getter methods - read-only access to private attributes
     public int getId() {
         return id;
     }
@@ -52,34 +37,26 @@ public abstract class HealthProfessional {
         return name;
     }
 
-    public String[] getWorkDays() {
+    public ArrayList<String> getWorkDays() {
         return workDays;
     }
 
     /**
-     * Returns a readable string with all professional details
+     * Checks whether the professional works on a given day.
+     * @param day the day to check
+     * @return true if the professional is available on that day
      */
-    @Override
-    public String toString() {
-        String days = String.join(", ", workDays);
-        return "Professional ID: " + id +
-               "\nName: " + name +
-               "\nWorking Days: " + days;
+    public boolean isWorkingDay(String day) {
+        return workDays.contains(day);
     }
 
     /**
-     * Two professionals are considered equal if they have the same ID
+     * Returns base professional information as a formatted string.
+     * @return summary of identity and working days
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        HealthProfessional other = (HealthProfessional) obj;
-        return id == other.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Integer.hashCode(id);
+    public String toString() {
+        return "ID: " + id + " | Name: " + name
+                + " | Working Days: " + String.join(", ", workDays);
     }
 }

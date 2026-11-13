@@ -1,40 +1,37 @@
+import java.util.ArrayList;
+
 /**
- * Nurse class, inherits from HealthProfessional
- * Represents a nurse who can take blood samples and provide nursing care
+ * Represents a registered nurse working at the health service.
+ * Extends HealthProfessional with a nursing qualification level.
  */
 public class Nurse extends HealthProfessional {
-    private String nurseLevel;
-
-    public Nurse(int id, String name, String[] workDays, String nurseLevel) {
-        super(id, name, workDays);
-        this.nurseLevel = nurseLevel;
-    }
-
-    public Nurse(int id, String name, String nurseLevel) {
-        super(id, name);
-        this.nurseLevel = nurseLevel;
-    }
+    private String nursingLevel;
 
     /**
-     * Unique behaviour: take blood sample from a patient
+     * Constructs a nurse with given qualification level.
+     * @param id unique identifier
+     * @param name nurse name
+     * @param workDays available working days
+     * @param nursingLevel qualification or seniority level
      */
-    public void takeBloodSample(String patientName) {
-        System.out.println("Nurse " + getName() + " takes a blood sample from patient " + patientName);
+    public Nurse(int id, String name, ArrayList<String> workDays, String nursingLevel) {
+        super(id, name, workDays);
+        this.nursingLevel = nursingLevel;
+    }
+
+    public String getNursingLevel() {
+        return nursingLevel;
     }
 
     @Override
-    public void performDuty() {
-        System.out.println(getName() + " is providing nursing care.");
+    public String performDuty() {
+        return "Basic nursing care, blood sample collection, vital signs monitoring and health education";
     }
 
     @Override
     public String toString() {
-        return "[Nurse]\n" +
-               super.toString() +
-               "\nNurse Level: " + nurseLevel;
-    }
-
-    public String getNurseLevel() {
-        return nurseLevel;
+        return "[Nurse] " + super.toString()
+                + " | Level: " + nursingLevel
+                + " | Service: " + performDuty();
     }
 }

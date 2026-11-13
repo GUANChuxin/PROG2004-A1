@@ -1,40 +1,37 @@
+import java.util.ArrayList;
+
 /**
- * Dietitian class, inherits from HealthProfessional
- * Represents a dietitian who creates personalised diet plans
+ * Represents an accredited dietitian and nutrition advisor.
+ * Extends HealthProfessional with a specialised nutrition focus.
  */
 public class Dietitian extends HealthProfessional {
-    private String expertiseArea;
-
-    public Dietitian(int id, String name, String[] workDays, String expertiseArea) {
-        super(id, name, workDays);
-        this.expertiseArea = expertiseArea;
-    }
-
-    public Dietitian(int id, String name, String expertiseArea) {
-        super(id, name);
-        this.expertiseArea = expertiseArea;
-    }
+    private String nutritionSpecialty;
 
     /**
-     * Unique behaviour: create a diet plan for a patient
+     * Constructs a dietitian with specified area of nutrition expertise.
+     * @param id unique identifier
+     * @param name dietitian name
+     * @param workDays available working days
+     * @param nutritionSpecialty focus area of nutrition practice
      */
-    public void createDietPlan(String patientName) {
-        System.out.println("Dietitian " + getName() + " creates a " + expertiseArea + " diet plan for patient " + patientName);
+    public Dietitian(int id, String name, ArrayList<String> workDays, String nutritionSpecialty) {
+        super(id, name, workDays);
+        this.nutritionSpecialty = nutritionSpecialty;
+    }
+
+    public String getNutritionSpecialty() {
+        return nutritionSpecialty;
     }
 
     @Override
-    public void performDuty() {
-        System.out.println(getName() + " is providing nutritional consultation.");
+    public String performDuty() {
+        return nutritionSpecialty + " dietary planning and nutrition consultation";
     }
 
     @Override
     public String toString() {
-        return "[Dietitian]\n" +
-               super.toString() +
-               "\nExpertise Area: " + expertiseArea;
-    }
-
-    public String getExpertiseArea() {
-        return expertiseArea;
+        return "[Dietitian] " + super.toString()
+                + " | Specialty: " + nutritionSpecialty
+                + " | Service: " + performDuty();
     }
 }

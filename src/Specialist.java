@@ -1,48 +1,37 @@
+import java.util.ArrayList;
+
 /**
- * Specialist class, inherits from HealthProfessional
- * Represents a doctor specialised in a specific medical field
+ * Represents a specialist medical practitioner.
+ * Extends HealthProfessional with a specific field of medical specialisation.
  */
 public class Specialist extends HealthProfessional {
     private String specialtyField;
-    private double consultationFee;
-
-    public Specialist(int id, String name, String[] workDays, String specialtyField, double consultationFee) {
-        super(id, name, workDays);
-        this.specialtyField = specialtyField;
-        this.consultationFee = consultationFee;
-    }
-
-    public Specialist(int id, String name, String specialtyField, double consultationFee) {
-        super(id, name);
-        this.specialtyField = specialtyField;
-        this.consultationFee = consultationFee;
-    }
 
     /**
-     * Unique behaviour: perform specialist diagnosis
+     * Constructs a specialist with defined medical specialty.
+     * @param id unique identifier
+     * @param name doctor name
+     * @param workDays available working days
+     * @param specialtyField area of medical specialisation
      */
-    public void performSpecialistDiagnosis(String patientName) {
-        System.out.println(specialtyField + " specialist Dr. " + getName() + " diagnoses patient " + patientName);
-    }
-
-    @Override
-    public void performDuty() {
-        System.out.println(getName() + " is providing " + specialtyField + " specialist treatment.");
-    }
-
-    @Override
-    public String toString() {
-        return "[Specialist]\n" +
-               super.toString() +
-               "\nSpecialty Field: " + specialtyField +
-               "\nConsultation Fee: $" + consultationFee;
+    public Specialist(int id, String name, ArrayList<String> workDays, String specialtyField) {
+        super(id, name, workDays);
+        this.specialtyField = specialtyField;
     }
 
     public String getSpecialtyField() {
         return specialtyField;
     }
 
-    public double getConsultationFee() {
-        return consultationFee;
+    @Override
+    public String performDuty() {
+        return specialtyField + " specialist diagnosis and treatment planning";
+    }
+
+    @Override
+    public String toString() {
+        return "[Specialist] " + super.toString()
+                + " | Specialty: " + specialtyField
+                + " | Service: " + performDuty();
     }
 }

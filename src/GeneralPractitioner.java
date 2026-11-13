@@ -1,46 +1,37 @@
+import java.util.ArrayList;
+
 /**
- * General Practitioner (GP) class, inherits from HealthProfessional
- * Represents a family doctor who can prescribe medication
+ * Represents a General Practitioner (GP), a primary care physician.
+ * Extends HealthProfessional and adds clinic location information.
  */
 public class GeneralPractitioner extends HealthProfessional {
     private String clinicLocation;
 
     /**
-     * Full constructor
+     * Constructs a GP with base professional details and clinic location.
+     * @param id unique identifier
+     * @param name doctor name
+     * @param workDays available working days
+     * @param clinicLocation room or clinic address
      */
-    public GeneralPractitioner(int id, String name, String[] workDays, String clinicLocation) {
+    public GeneralPractitioner(int id, String name, ArrayList<String> workDays, String clinicLocation) {
         super(id, name, workDays);
         this.clinicLocation = clinicLocation;
     }
 
-    /**
-     * Overloaded constructor with default work days
-     */
-    public GeneralPractitioner(int id, String name, String clinicLocation) {
-        super(id, name);
-        this.clinicLocation = clinicLocation;
-    }
-
-    /**
-     * Unique behaviour: prescribe medication for a patient
-     */
-    public void prescribeMedication(String patientName, String medication) {
-        System.out.println("Dr. " + getName() + " prescribes " + medication + " to patient " + patientName);
+    public String getClinicLocation() {
+        return clinicLocation;
     }
 
     @Override
-    public void performDuty() {
-        System.out.println(getName() + " is conducting a general consultation.");
+    public String performDuty() {
+        return "General diagnosis, primary health consultation, and patient referral services";
     }
 
     @Override
     public String toString() {
-        return "[General Practitioner]\n" +
-               super.toString() +
-               "\nClinic Location: " + clinicLocation;
-    }
-
-    public String getClinicLocation() {
-        return clinicLocation;
+        return "[General Practitioner] " + super.toString()
+                + " | Clinic: " + clinicLocation
+                + " | Service: " + performDuty();
     }
 }
